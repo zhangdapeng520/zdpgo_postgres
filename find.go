@@ -1,25 +1,20 @@
 package zdpgo_postgres
 
-import "fmt"
+import "database/sql"
 
-func (p *Postgres) FindCountByColumn(table, columnName string, columnValue interface{}) (count int) {
-	// 构建SQL语句
-	sql := fmt.Sprintf("SELECT count(*) FROM %s where %s = $1", table, columnName)
-
-	// 查询数据库
-	rows, err := p.conn.Query(sql, columnValue)
-	defer rows.Close()
-	// rows, err := Db.Query("SELECT count(*) FROM posts where thread_id = $1", thread.Id)
+// FindMany 从数据库中查询多条数据
+func (p *Postgres) FindMany(sql string, args ...interface{}) (rows *sql.Rows, err error) {
+	// 执行SQL语句
+	rows, err = p.conn.Query(sql, args...)
 	if err != nil {
-		p.log.Error("查询数据库失败：", err)
+		return nil, err
 	}
+	return rows, err
+}
 
-	// 取值
-	for rows.Next() {
-		if err = rows.Scan(&count); err != nil {
-			p.log.Error("查询数据库失败：", err)
-		}
-	}
-
-	return count
+// Find 从数据库中查询单条数据
+func (p *Postgres) Find(sql string, args ...interface{}) *sql.Row {
+	// 执行SQL语句
+	row := p.conn.QueryRow(sql, args...)
+	return row
 }
