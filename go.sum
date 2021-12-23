@@ -1,2 +1,4 @@
 github.com/lib/pq v1.10.4 h1:SO9z7FRPzA03QhHKJrH5BXA6HU1rS4V2nIVrrNC1iYk=
 github.com/lib/pq v1.10.4/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
+github.com/zhangdapeng520/zdpgo_log v1.0.2 h1:zPmICQn9oEQSxBsJfNDHLwIFP3Z2mz8haKvjbe9xA48=
+github.com/zhangdapeng520/zdpgo_log v1.0.2/go.mod h1:+J0wOifYgn7BLLhZiSvsTHBkYknw3ijuXysQnaQA9h8=
