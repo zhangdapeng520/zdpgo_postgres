@@ -7,7 +7,10 @@ import (
 )
 
 // FindMany 从数据库中查询多条数据
-func (p *Postgres) FindMany(sql string, args ...interface{}) (rows pgx.Rows, err error) {
+func (p *Postgres) QueryMany(sql string, args ...interface{}) (rows pgx.Rows, err error) {
+	p.log.Info("正在执行查询SQL语句：", sql)
+	p.log.Info("参数：", args)
+
 	// 执行SQL语句
 	rows, err = p.conn.Query(context.Background(), sql, args...)
 	if err != nil {
@@ -17,7 +20,10 @@ func (p *Postgres) FindMany(sql string, args ...interface{}) (rows pgx.Rows, err
 }
 
 // Find 从数据库中查询单条数据
-func (p *Postgres) Find(sql string, args ...interface{}) pgx.Row {
+func (p *Postgres) Query(sql string, args ...interface{}) pgx.Row {
+	p.log.Info("正在执行查询SQL语句：", sql)
+	p.log.Info("参数：", args)
+
 	// 执行SQL语句
 	row := p.conn.QueryRow(context.Background(), sql, args...)
 	return row

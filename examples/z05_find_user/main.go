@@ -28,7 +28,7 @@ func main() {
 	sql := `
 		SELECT id, uuid, name, email, password, created_at FROM users
 		`
-	row := p.Find(sql)
+	row := p.Query(sql)
 
 	// 根据结构体查询
 	user1 := User{}
@@ -47,7 +47,7 @@ func main() {
 	sql = `
 		SELECT id, uuid, name, email, password, created_at FROM users
 		`
-	row = p.Find(sql)
+	row = p.Query(sql)
 	row.Scan(&id, &uuid, &name, &email, &password1, &create_at)
 	fmt.Println(id, uuid, name, email, password1, create_at)
 }

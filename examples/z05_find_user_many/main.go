@@ -28,7 +28,7 @@ func main() {
 	sql := `
 		SELECT id, uuid, name, email, password, created_at FROM users
 		`
-	rows, err := p.FindMany(sql)
+	rows, err := p.QueryMany(sql)
 	defer rows.Close()
 	if err != nil {
 		fmt.Println("查找用户失败：", err)
