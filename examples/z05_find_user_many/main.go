@@ -17,7 +17,7 @@ type User struct {
 }
 
 func main() {
-	host := "127.0.0.1"
+	host := "192.168.18.101"
 	port := 5432
 	user := "postgres"
 	password := "postgres"
@@ -37,6 +37,7 @@ func main() {
 	}
 	fmt.Println(rows)
 
+	// 根据结构体查询
 	var users []User
 	for rows.Next() {
 		user1 := User{}

@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	host := "127.0.0.1"
+	host := "192.168.18.101"
 	port := 5432
 	user := "postgres"
 	password := "postgres"
@@ -26,9 +26,6 @@ func main() {
 		  created_at timestamp not null
 		);
 		`
-	err := p.Execute(sql)
-	if err != nil {
-		fmt.Println("创建表格失败：", err)
-	}
-	fmt.Println("创建表格成功。")
+	flag := p.Execute(sql)
+	fmt.Println(flag)
 }

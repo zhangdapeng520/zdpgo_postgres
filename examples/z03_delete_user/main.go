@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	host := "127.0.0.1"
+	host := "192.168.18.101"
 	port := 5432
 	user := "postgres"
 	password := "postgres"
@@ -17,11 +17,8 @@ func main() {
 
 	// 创建表格
 	sql := `
-		delete from users where id = $1
+		delete from users where id = $1;
 		`
-	err := p.Execute(sql, 1)
-	if err != nil {
-		fmt.Println("删除用户失败：", err)
-	}
-	fmt.Println("删除用户成功。")
+	result := p.Execute(sql, 1)
+	fmt.Println(result)
 }

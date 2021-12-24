@@ -1,15 +1,16 @@
 package zdpgo_postgres
 
 import (
-	"database/sql"
+	"context"
 	"fmt"
 
+	"github.com/jackc/pgx/v4"
 	"github.com/zhangdapeng520/zdpgo_log"
 )
 
 // PostgreSQL结构体
 type Postgres struct {
-	conn    *sql.DB        // 数据库连接对象
+	conn    *pgx.Conn      // 数据库连接对象
 	logPath string         // 日志文件路径
 	log     *zdpgo_log.Log // 日志对象
 	debug   bool           // 是否为debug模式
@@ -46,24 +47,15 @@ func New(host string, port int, user, password, database, logPath string, debug 
 	p.log.SetDebug(debug)
 
 	// 创建数据库连接对象
-	address := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, database)
-	Db, err := sql.Open("postgres", address)
+	// address := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, database)
+	// Db, err := sql.Open("postgres", address)
+	DatabaseUrl := fmt.Sprintf("postgres://%s:%s@%s:%d/%s", user, password, host, port, database)
+	conn, err := pgx.Connect(context.Background(), DatabaseUrl)
 	if err != nil {
 		p.log.Panic("连接PostgreSQL数据库失败：", err)
 	}
-	p.conn = Db
+	p.conn = conn
 
 	// 返回初始化后的postgres对象
 	return &p
-}
-
-// Default 按照默配置创建新的Postgres对象
-func Default() *Postgres {
-	host := "127.0.0.1"
-	port := 5432
-	user := "postgres"
-	password := "postgres"
-	database := "postgres"
-	logPath := "zdpgo_postgres.log"
-	return New(host, port, user, password, database, logPath, true)
 }

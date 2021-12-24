@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	host := "127.0.0.1"
+	host := "192.168.18.101"
 	port := 5432
 	user := "postgres"
 	password := "postgres"
@@ -24,9 +24,6 @@ func main() {
 			uuid,
 			created_at
 		`
-	err := p.Execute(sql, "aa1", "张大鹏", "zhangdapen1g@qq.com", "test", time.Now())
-	if err != nil {
-		fmt.Println("创建用户失败：", err)
-	}
-	fmt.Println("创建用户成功。")
+	result := p.Execute(sql, "aa1", "张大鹏", "zhangdapen1g@qq.com", "test", time.Now())
+	fmt.Println(result)
 }
